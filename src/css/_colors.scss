@@ -1,0 +1,35 @@
+// theme colors
+$dark: #425567;
+$darker: #2e343f;
+$black: #333;
+$white: #eee;
+$pure-white: #fff;
+$grey: #bbb;
+
+$red: #ff6057;
+$orange: #e98d42;
+$green: #29cb3f;
+$yellow: #febd2d;
+$blue: #33aaccdd;
+
+$p-blue: #2fa2c2;
+$p-red: #ba6067;
+$p-yellow: #dec183;
+$p-green: #9db788;
+$p-violet: #b38dad;
+$p-orange: #cc866f;
+
+$d-red: #ef4239;
+$d-blue: #0d66aa;
+$d-grey: #777;
+$d-green: #0da922;
+$d-yellow: #ec9e0e;
+$d-orange: #ec720e;
+
+$l-blue: #b7e2eb;
+
+// Text colors
+$t-light: darken($l-blue, 20%);
+$t-m-light: darken($l-blue, 30%);
+$t-medium: darken($l-blue, 50%);
+$t-dark: darken($l-blue, 70%);

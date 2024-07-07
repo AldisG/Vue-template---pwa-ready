@@ -1,0 +1,153 @@
+@import "colors";
+
+@mixin text-color($tone: 'light') {
+    // light / medium / dark / white
+    @if $tone == 'light' {
+        color: $t-light;
+    }
+    @if $tone == 'regular' {
+        color: $t-m-light;
+    }
+    @if $tone == 'medium' {
+        color: $t-medium;
+    }
+    @if $tone == 'dark' {
+        color: $t-dark;
+    }
+    @if $tone == 'white' {
+        color: $white;
+    }
+}
+
+@mixin neo-shadow-with-inner(
+    $d-out: $l-blue, 
+    $l-out: $grey, 
+    $d-in: $d-blue, 
+    $l-in: transparent, 
+    $inner: false, 
+    $isWhite: false
+    ) {
+    @if ($inner == true) {
+        @if $isWhite {
+            box-shadow: 
+            2px 8px 6px 0 transparentize(darken($d-out, 80%), 0.35),
+            -2px -4px 8px 0 $pure-white,
+            inset 6px 6px 4px 0 transparentize(darken($d-in, 25%), 0.35),
+            inset -6px -6px 10px 0 transparentize(lighten($l-in, 25%), 0.65);
+        } @else {
+            box-shadow: 
+            2px 4px 6px 0 transparentize(darken($d-out, 80%), 0.35),
+            -2px -4px 8px 0 lighten($l-out, 50%),
+            inset 6px 6px 4px 0 transparentize(darken($d-in, 25%), 0.65),
+            inset -6px -6px 10px 0 transparentize(lighten($l-in, 25%), 0.65);
+        }
+    } @else {
+        @if $isWhite {
+            box-shadow: 
+            2px 8px 6px 0 transparentize(darken($d-out, 80%), 0.35),
+            -2px -4px 8px 0 $pure-white;
+        } @else {
+            box-shadow: 
+            2px 4px 6px 0 transparentize(darken($d-out, 80%), 0.35),
+            -2px -4px 8px 0 lighten($l-out, 50%);
+        }
+    }
+}
+
+@mixin input-shadow-states($disabled: false) {
+    @include transition-property(box-shadow, color);
+
+    box-shadow: 
+        inset 6px 6px 4px 0 transparentize(darken($l-blue, 65%), 0.35),
+        inset 0 0 0 0 transparent,
+        0 0 0 0 transparent,
+        0 0 0 0 transparent;
+    
+    @if not ($disabled) {
+        &:hover, &:focus {
+            box-shadow: 
+                inset 2px 2px 4px 0 transparentize(darken($l-blue, 65%), 0.55),
+                inset 0 0 0 0 transparent,
+                0 0 0 0 transparent,
+                0 0 0 0 transparent;
+        }
+    }
+}
+
+@mixin transition-property($properties...) {
+    $transition: ();
+
+    @each $property in $properties {
+        $transition: append($transition, $property .2s ease, comma);
+    }
+
+    transition: $transition;
+}
+
+@mixin input-defaults {
+    padding: .5rem 1rem;
+    height: $input-btn-height;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin border-rounding() {
+    &:not(.round-left):not(.round-right):not(.is-round) {
+        border-radius: $small-radius;
+    }
+    &.round-left.round-right,
+    &.is-round {
+        border-radius: $max-radius;
+    }
+
+    &.round-left {
+        border-top-left-radius: $max-radius;
+        border-bottom-left-radius: $max-radius;
+        
+        border-top-right-radius: $small-radius;
+        border-bottom-right-radius: $small-radius;
+
+        &:not(.round-right) {
+            @media screen and (max-width: calc($mobile-l-scr-size + 1px)) {
+                border-top-right-radius: $max-radius;
+                border-bottom-right-radius: $max-radius;
+            }
+        }
+    }
+    
+    &.round-right {
+        border-top-right-radius: $max-radius;
+        border-bottom-right-radius: $max-radius;
+        
+        border-top-left-radius: $small-radius;
+        border-bottom-left-radius: $small-radius;
+
+        &:not(.round-left) {
+            @media screen and (max-width: calc($mobile-l-scr-size + 1px)) {
+                border-top-left-radius: $max-radius;
+                border-bottom-left-radius: $max-radius;
+            }
+        }
+    }
+}
+
+@mixin light-outline($strong: false) {
+    @if $strong {
+        outline: 1px solid transparentize($white, .55);
+    }
+    @else {
+        outline: 1px solid transparentize($white, .75);
+    }
+}
+
+// Up for reevaluation
+// @mixin invisible-shadow-fix {
+//     box-shadow: 
+//     2px 8px 6px 0 transparent,
+//     -2px -4px 8px 0 transparent,
+//     inset 6px 6px 4px 0 transparent,
+//     inset -6px -6px 10px 0 transparent;
+// }
